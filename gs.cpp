@@ -62,22 +62,12 @@ bool haveSameDim(const VecList& vectors) {
 
 // returns whether or not all vectors in `vectors` are nonzero.
 bool allNonzero(const VecList& vectors) {
-    for (const auto& vector : vectors) {
-        if (!isNonzero(vector)) return false;
-    }
-    return true;
+    return all_of(vectors.begin(), vectors.end(), isNonzero);
 }
 
 // returns whether or not `vector` is nonzero.
 bool isNonzero(const Vec& vector) {
-    auto nonzero = false;
-    for (double v : vector) {
-        if (v != 0.0) {
-            nonzero = true;
-            break;
-        }
-    }
-    return nonzero;
+    return any_of(vector.begin(), vector.end(), [](double v) { return v != 0.0; });
 }
 
 // element-wise subtraction of `p` from `w`.
